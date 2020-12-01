@@ -7,6 +7,7 @@
       "size" : "20x20"
     },
     {
+      "filename" : "Artboard1_iPhoneSettings_20@3x.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "20x20"
@@ -42,6 +43,18 @@
       "size" : "40x40"
     },
     {
+      "filename" : "Artboard1_iPhoneApp_57.png",
+      "idiom" : "iphone",
+      "scale" : "1x",
+      "size" : "57x57"
+    },
+    {
+      "filename" : "Artboard1_iPhoneApp_57@2x.png",
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "57x57"
+    },
+    {
       "filename" : "Artboard1_iPhoneApp_60@2x.png",
       "idiom" : "iphone",
       "scale" : "2x",
@@ -64,41 +77,49 @@
       "size" : "20x20"
     },
     {
+      "filename" : "Artboard1_iPadSettings_29-1.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "29x29"
     },
     {
+      "filename" : "Artboard1_iPadSettings_29@2x-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
+      "filename" : "Artboard1_iPadSpotlight_40-1.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "40x40"
     },
     {
+      "filename" : "Artboard1_iPadSpotlight_40@2x-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
+      "filename" : "Artboard1_iPadApp_76.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "76x76"
     },
     {
+      "filename" : "Artboard1_iPadApp_76@2x.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "76x76"
     },
     {
+      "filename" : "Artboard1_iPadProApp_83.5@2x.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
     },
     {
+      "filename" : "Artboard1_iPhoneSettings_.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"

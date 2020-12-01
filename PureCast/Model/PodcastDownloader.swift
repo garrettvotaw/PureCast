@@ -15,7 +15,6 @@ class PodcastDownloader: ObservableObject {
     var cancelationToken: AnyCancellable?
     
     init(feedURL: URL) {
-        
         getPodcasts(url: feedURL)
     }
 }
@@ -40,7 +39,6 @@ extension PodcastDownloader {
                             self.podcasts.append(Podcast(feedItem: i))
                         }
                     }
-                    
                     break
                 }
             case .failure(let parserError):

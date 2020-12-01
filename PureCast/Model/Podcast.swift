@@ -14,11 +14,22 @@ struct Podcast {
     let description: String?
     let audioURL: URL
     let id = UUID()
+    let isVideo: Bool
     
     init(feedItem: RSSFeedItem) {
         self.title = feedItem.title ?? ""
         
+        if let type = feedItem.enclosure?.attributes?.type {
+            if type.contains("video") {
+                self.isVideo = true
+            } else {
+                self.isVideo = false
+            }
+        } else {
+            self.isVideo = false
+        }
         
+
         if let description = feedItem.description, description != "" {
             let substring = feedItem.description!.split(separator: "<")
             if substring.count > 0 {

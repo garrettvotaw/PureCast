@@ -9,6 +9,7 @@
 import Foundation
 import AVKit
 import Combine
+import MediaPlayer
 
 class AudioPlayer: ObservableObject {
     let player = AVPlayer()
@@ -32,20 +33,23 @@ class AudioPlayer: ObservableObject {
     
     
     func playPause() {
-        isPlaying ? player.pause() : player.play(); addPeriodicTimeObserver()
+        isPlaying ? player.pause() : player.play(); addPeriodicTimeObserver(); setupNowPlaying()
         isPlaying.toggle()
+        setupNowPlaying()
     }
 
     func seekForward() {
         let current = player.currentTime()
         let newTime = CMTime(seconds: current.seconds + 30, preferredTimescale: 500)
         player.seek(to: newTime)
+        setupNowPlaying(currentTime: current.seconds + 30)
     }
     
     func seekBack() {
         let current = player.currentTime()
         let newTime = CMTime(seconds: current.seconds - 15, preferredTimescale: 600)
         player.seek(to: newTime)
+        setupNowPlaying(currentTime: current.seconds - 15)
     }
     
     
@@ -56,6 +60,84 @@ class AudioPlayer: ObservableObject {
               // Publish the new player time
               self.publisher.send(time.seconds)
             }
+    }
+    
+    func setupNowPlaying(currentTime: Double? = nil) {
+        // Define Now Playing Info
+        var nowPlayingInfo = [String : Any]()
+        let playerItem = player.currentItem
+        
+        nowPlayingInfo[MPMediaItemPropertyTitle] = "\(currentItem)"
+
+        let image = UIImage(imageLiteralResourceName: "LockScreenAudioImage")
+        nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size) { size in return image }
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = currentTime == nil ? playerItem?.currentTime().seconds : currentTime
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = playerItem?.asset.duration.seconds
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = player.rate
+
+        // Set the metadata
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+    }
+    
+    func setupRemoteTransportControls() {
+        // Get the shared MPRemoteCommandCenter
+        let commandCenter = MPRemoteCommandCenter.shared()
+        // Add handler for Play Command
+        commandCenter.playCommand.addTarget { [unowned self] event in
+            if self.player.rate == 0.0 {
+                self.player.play()
+                setupNowPlaying()
+                return .success
+            }
+            return .commandFailed
+        }
+
+        // Add handler for Pause Command
+        commandCenter.pauseCommand.addTarget { [unowned self] event in
+            if self.player.rate == 1.0 {
+                self.player.pause()
+                setupNowPlaying()
+                return .success
+            }
+            return .commandFailed
+        }
+        
+        commandCenter.skipForwardCommand.addTarget { [unowned self] event in
+            seekForward()
+            return .success
+        }
+        
+        commandCenter.skipBackwardCommand.addTarget {[unowned self] event in
+            seekBack()
+            return .success
+        }
+        
+        commandCenter.changePlaybackPositionCommand.addTarget { [unowned self] (event) in
+            print(event.timestamp)
+            self.player.pause()
+            self.player.seek(to: CMTime(seconds: event.timestamp, preferredTimescale: 600))
+            setupNowPlaying(currentTime: event.timestamp)
+            self.player.play()
+            return .success
+        }
+        
+        commandCenter.nextTrackCommand.isEnabled = false
+        commandCenter.previousTrackCommand.isEnabled = false
+        
+        commandCenter.skipForwardCommand.isEnabled = true
+        commandCenter.skipForwardCommand.preferredIntervals = [NSNumber(integerLiteral: 30)]
+        
+        commandCenter.skipBackwardCommand.isEnabled = true
+        commandCenter.skipBackwardCommand.preferredIntervals = [NSNumber(integerLiteral: 15)]
+        
+        commandCenter.changePlaybackPositionCommand.isEnabled = false
+        
+        commandCenter.seekForwardCommand.isEnabled = false
+        commandCenter.seekBackwardCommand.isEnabled = false
+    }
+    
+    init() {
+        setupRemoteTransportControls()
     }
     
 }

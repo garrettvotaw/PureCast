@@ -10,7 +10,7 @@ import Foundation
 
 class Utility: NSObject {
     
-    private static var timeHMSFormatter: DateComponentsFormatter = {
+    private static var timeMSFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .positional
         formatter.allowedUnits = [.minute, .second]
@@ -18,10 +18,24 @@ class Utility: NSObject {
         return formatter
     }()
     
+    private static var timeHMSFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.zeroFormattingBehavior = [.pad]
+        return formatter
+    }()
+    
     static func formatSecondsToHMS(_ seconds: Double) -> String {
-        guard !seconds.isNaN,
-            let text = timeHMSFormatter.string(from: seconds) else {
-                return "00:00"
+        var text = "00.00"
+        guard !seconds.isNaN else {
+            return text
+        }
+        
+        if seconds < 3600 {
+            text = timeMSFormatter.string(from: seconds) ?? "00.00"
+        } else {
+            text = timeHMSFormatter.string(from: seconds) ?? "00.00"
         }
          
         return text

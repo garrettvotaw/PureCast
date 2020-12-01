@@ -21,7 +21,6 @@ struct ContentView: View {
         }
     }
     
-    
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -83,14 +82,16 @@ struct PlayerControls: View {
                     .frame(width: 20, height: 23, alignment: .center)
                     .foregroundColor(Color("BlackWhite"))
             }
+            .padding(.trailing)
 
             Button(action: {
                 audioPlayer.playPause()
                 
             }, label: {
-                Image(systemName: audioPlayer.isPlaying ? "pause.fill" : "play.fill")
+                Image(systemName: audioPlayer.player.timeControlStatus == AVPlayer.TimeControlStatus.paused ? "play.fill" : "pause.fill")
                     .resizable()
-                    .frame(width: 25, height: 25, alignment: .center)
+                    .aspectRatio(1.0, contentMode: .fit)
+                    .frame(width: 25, height: 27, alignment: .center)
                     .foregroundColor(Color("BlackWhite"))
                     .padding(.horizontal)
             })
@@ -103,6 +104,7 @@ struct PlayerControls: View {
                     .frame(width: 20, height: 23, alignment: .center)
                     .foregroundColor(Color("BlackWhite"))
             }
+            .padding(.leading)
         }
     }
 }
@@ -111,7 +113,7 @@ struct ProgressionView: View {
     let timeObserver: AudioPlayer
     @State private var currentTime: TimeInterval = 0
     @State private var currentProgress: TimeInterval = 0
-      
+    let gradient = Gradient(colors: [Color("Accent"), Color("Color")])
       var body: some View {
         VStack {
             ProgressView(value: currentProgress)

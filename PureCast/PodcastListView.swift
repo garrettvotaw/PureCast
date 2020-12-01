@@ -14,24 +14,65 @@ struct PodcastListView: View {
     
     @ObservedObject var audioPlayer: AudioPlayer
     @StateObject var podcastDownloader: PodcastDownloader
-    
     let podcastTitle: String
     
     var body: some View {
         ScrollView {
             ForEach(podcastDownloader.podcasts, id: \.id) { item in
-                PodcastRow(item: item, audioPlayer: audioPlayer)
+                if item.isVideo {
+                    NavigationLink(
+                        destination: VideoPlayer(player: audioPlayer.player)
+                            .onAppear {
+                                audioPlayer.url = item.audioURL
+                            },
+                        label: {
+                            VideoPodcastRow(item: item, audioPlayer: audioPlayer)
+                        })
+                } else {
+                    PodcastRow(item: item, audioPlayer: audioPlayer)
+                }
             }
             .navigationBarTitle(Text("\(podcastTitle)"))
-            
         }
-        
     }
+    
+    
 }
 
 
 // MARK: ROW VIEW---------------------------------------------------------------------------------------------------------------------------
-
+struct VideoPodcastRow: View {
+    var item: Podcast
+    @ObservedObject var audioPlayer: AudioPlayer
+    
+    var body: some View {
+        VStack {
+            VStack {
+                HStack {
+                    
+                    Text(item.title)
+                    .padding(.bottom, 10)
+                    .font(.headline)
+                    Spacer()
+                }
+                
+                HStack {
+                        if let description = item.description {
+                            Text("\(description)")
+                        } else {
+                            EmptyView()
+                        }
+                    Spacer()
+                }
+            }
+            .padding(.leading, 30)
+            .padding(.trailing)
+            .padding(.vertical)
+            Divider()
+                .padding(.leading, 15)
+        }
+    }
+}
 
 struct PodcastRow: View {
     
@@ -60,6 +101,7 @@ struct PodcastRow: View {
                 }
             }
             .padding(.leading, 30)
+            .padding(.trailing)
             .padding(.vertical)
             Divider()
                 .padding(.leading, 15)
@@ -80,7 +122,6 @@ struct PodcastRow: View {
                 audioPlayer.playPause()
             }
         }
-        
     }
 }
 
