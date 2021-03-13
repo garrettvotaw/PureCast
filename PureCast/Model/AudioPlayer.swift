@@ -10,6 +10,7 @@ import Foundation
 import AVKit
 import Combine
 import MediaPlayer
+import SwiftUI
 
 class AudioPlayer: ObservableObject {
     let player = AVPlayer()
@@ -22,10 +23,25 @@ class AudioPlayer: ObservableObject {
             return _url
         }
         set {
-            _url = newValue
-            player.replaceCurrentItem(with: AVPlayerItem(url: newValue!))
+            if isPlaying {
+                if newValue == _url {
+                    return
+                } else {
+                    player.pause()
+                    player.replaceCurrentItem(with: nil)
+                    _url = newValue
+                    player.replaceCurrentItem(with: AVPlayerItem(url: newValue!))
+                    player.play()
+                }
+            } else {
+                _url = newValue
+                player.replaceCurrentItem(with: AVPlayerItem(url: newValue!))
+                playPause()
+            }
+            
         }
     }
+    
     
     @Published var currentItem: String = " "
     @Published var isPlaying: Bool = false
@@ -34,7 +50,6 @@ class AudioPlayer: ObservableObject {
     
     func playPause() {
         isPlaying ? player.pause() : player.play(); addPeriodicTimeObserver(); setupNowPlaying()
-        isPlaying.toggle()
         setupNowPlaying()
     }
 
@@ -52,13 +67,17 @@ class AudioPlayer: ObservableObject {
         setupNowPlaying(currentTime: current.seconds - 15)
     }
     
-    
     func addPeriodicTimeObserver() {
         // Periodically observe the player's current time, whilst playing
             timeObservation = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.5, preferredTimescale: 600), queue: nil) { [weak self] time in
-              guard let self = self else { return }
-              // Publish the new player time
-              self.publisher.send(time.seconds)
+                guard let self = self else { return }
+                // Publish the new player time
+                self.publisher.send(time.seconds)
+                if self.player.timeControlStatus == .playing {
+                    self.isPlaying = true
+                } else {
+                    self.isPlaying = false
+                }
             }
     }
     

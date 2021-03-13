@@ -7,14 +7,19 @@
 //
 
 import Foundation
+import UIKit
 
 class PodcastFeed: ObservableObject, Identifiable {
     let title: String
     let url: URL
     let id = UUID()
+    let image: UIImage?
+    let desc: String?
     
-    init(title: String, url: URL) {
+    init(title: String, url: URL, image: UIImage? = nil, desc: String? = nil) {
         self.title = title
         self.url = url
+        self.image = image
+        self.desc = desc
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FeedKit
 
 class Utility: NSObject {
     
@@ -41,4 +42,10 @@ class Utility: NSObject {
         return text
     }
     
+}
+
+extension RSSFeedItem: Identifiable {
+    public var id: UUID {
+        return UUID()
+    }
 }
