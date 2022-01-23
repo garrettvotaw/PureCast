@@ -38,8 +38,6 @@ struct PodcastRow: View {
                             Spacer()
                         }
                     }
-                    
-                    
                 }
             }
             .padding(.leading, 30)
@@ -47,23 +45,23 @@ struct PodcastRow: View {
             .padding(.vertical)
             Divider()
                 .padding(.leading, 15)
-            
         }
         .onTapGesture {
-            if audioPlayer.isPlaying {
-                if audioPlayer.url == item.audioURL {
-                    return
-                } else {
-                    audioPlayer.playPause()
-                    audioPlayer.currentItem = item.title
-                    audioPlayer.url = item.audioURL
-                    audioPlayer.playPause()
-                }
-            } else {
-                audioPlayer.url = item.audioURL
-                audioPlayer.currentItem = item.title
-                audioPlayer.playPause()
-            }
+            audioPlayer.currentItem = item.title
+            audioPlayer.url = item.audioURL
+//            if audioPlayer.isPlaying {
+//                if audioPlayer.url == item.audioURL {
+//                    return
+//                } else {
+//                    audioPlayer.playPause()
+//
+//                    audioPlayer.playPause()
+//                }
+//            } else {
+//                audioPlayer.url = item.audioURL
+//                audioPlayer.currentItem = item.title
+//                audioPlayer.playPause()
+//            }
         }
     }
 }

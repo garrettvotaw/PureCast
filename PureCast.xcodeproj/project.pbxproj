@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		947DEBC6926D38096AB69EE5 /* Pods_PureCast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376E248BDE6F3D499802A586 /* Pods_PureCast.framework */; };
 		A70CE36D255CC58E001F9CD0 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70CE36C255CC58E001F9CD0 /* Utility.swift */; };
 		A77E6A00255C68D9009549D7 /* FeedsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E69FF255C68D9009549D7 /* FeedsListView.swift */; };
 		A77E6A06255C6B6F009549D7 /* PodcastFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E6A05255C6B6F009549D7 /* PodcastFeed.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		376E248BDE6F3D499802A586 /* Pods_PureCast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PureCast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F475D76260EF92918AFB2B /* Pods-PureCast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PureCast.debug.xcconfig"; path = "Target Support Files/Pods-PureCast/Pods-PureCast.debug.xcconfig"; sourceTree = "<group>"; };
 		7AC4715094AF7502E3B0AA92 /* Pods-PureCast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PureCast.release.xcconfig"; path = "Target Support Files/Pods-PureCast/Pods-PureCast.release.xcconfig"; sourceTree = "<group>"; };
 		A70CE36C255CC58E001F9CD0 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7BB1AA5255B94B700B3885A /* AVFoundation.framework in Frameworks */,
+				947DEBC6926D38096AB69EE5 /* Pods_PureCast.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				A7BB1AA4255B94B700B3885A /* AVFoundation.framework */,
+				376E248BDE6F3D499802A586 /* Pods_PureCast.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -440,18 +444,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PureCast/PureCast.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PureCast/Preview Content\"";
-				DEVELOPMENT_TEAM = 2J2B92S4Z7;
+				DEVELOPMENT_TEAM = 76WLG3G338;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PureCast/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3;
+				MARKETING_VERSION = 3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.garrettvotaw.PureCast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -464,18 +470,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PureCast/PureCast.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PureCast/Preview Content\"";
-				DEVELOPMENT_TEAM = 2J2B92S4Z7;
+				DEVELOPMENT_TEAM = 76WLG3G338;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PureCast/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3;
+				MARKETING_VERSION = 3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.garrettvotaw.PureCast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

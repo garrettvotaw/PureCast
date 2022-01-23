@@ -8,6 +8,7 @@
 
 import Foundation
 import FeedKit
+import SwiftSoup
 
 struct Podcast {
     let title: String
@@ -38,17 +39,20 @@ struct Podcast {
         
 
         if let description = feedItem.description, description != "" {
-            let substring = feedItem.description!.split(separator: "<")
-            if substring.count > 0 && substring.count < 3{
-                self.description = "\(substring[0].description)"
-            } else if substring.count > 2 {
-                self.description = ""
-            } else {
-                self.description = "\(description)"
-            }
+            let doc = try! SwiftSoup.parse(description)
+            self.description = try! doc.text()
+//            let substring = feedItem.description!.split(separator: "<")
+//            if substring.count > 0 && substring.count < 3{
+//                self.description = "\(substring[0].description)"
+//            } else if substring.count > 2 {
+//                self.description = ""
+//            } else {
+//                self.description = "\(description)"
+//            }
         } else {
             self.description = nil
         }
+        
         
         guard let url = feedItem.enclosure?.attributes?.url else {
             self.audioURL = URL(string: "https://desiringgod.org")!

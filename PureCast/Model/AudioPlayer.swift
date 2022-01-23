@@ -31,16 +31,21 @@ class AudioPlayer: ObservableObject {
                     player.replaceCurrentItem(with: nil)
                     _url = newValue
                     player.replaceCurrentItem(with: AVPlayerItem(url: newValue!))
+                    addPeriodicTimeObserver()
+                    setupNowPlaying()
                     player.play()
                 }
             } else {
                 _url = newValue
                 player.replaceCurrentItem(with: AVPlayerItem(url: newValue!))
-                playPause()
+                setupNowPlaying()
+                addPeriodicTimeObserver()
+                player.play()
             }
             
         }
     }
+    @Published var showPlayer: Bool = true
     
     
     @Published var currentItem: String = " "
@@ -49,7 +54,7 @@ class AudioPlayer: ObservableObject {
     
     
     func playPause() {
-        isPlaying ? player.pause() : player.play(); addPeriodicTimeObserver(); setupNowPlaying()
+        isPlaying ? player.pause() : player.play(); addPeriodicTimeObserver()
         setupNowPlaying()
     }
 
@@ -157,6 +162,7 @@ class AudioPlayer: ObservableObject {
     
     init() {
         setupRemoteTransportControls()
+        
     }
     
 }
