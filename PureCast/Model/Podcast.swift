@@ -27,8 +27,8 @@ struct Podcast {
         formatter.dateFormat = "MMM dd yyyy"
         self.pubDate = formatter.string(from: date)
         
-        if let type = feedItem.enclosure?.attributes?.type {
-            if type.contains("video") {
+        if let type = feedItem.enclosure?.attributes?.type, let author = feedItem.iTunes?.iTunesAuthor {
+            if type.contains("video") && author == "John Piper" {
                 self.isVideo = true
             } else {
                 self.isVideo = false
@@ -37,18 +37,12 @@ struct Podcast {
             self.isVideo = false
         }
         
+        
+        
 
         if let description = feedItem.description, description != "" {
             let doc = try! SwiftSoup.parse(description)
             self.description = try! doc.text()
-//            let substring = feedItem.description!.split(separator: "<")
-//            if substring.count > 0 && substring.count < 3{
-//                self.description = "\(substring[0].description)"
-//            } else if substring.count > 2 {
-//                self.description = ""
-//            } else {
-//                self.description = "\(description)"
-//            }
         } else {
             self.description = nil
         }

@@ -17,7 +17,9 @@ struct ContentView: View {
     var body: some View {
         VStack {
             FeedsListView(audioPlayer: audioPlayer)
-            PlayerView(audioPlayer: audioPlayer, audioProgress: $audioPlayer.progress, isVisible: $audioPlayer.showPlayer)
+            if audioPlayer.showPlayer {
+                PlayerView(audioPlayer: audioPlayer, audioProgress: $audioPlayer.progress, isVisible: $audioPlayer.showPlayer)
+            }
         }
     }
     

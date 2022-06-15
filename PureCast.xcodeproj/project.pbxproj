@@ -194,6 +194,8 @@
 			dependencies = (
 			);
 			name = PureCast;
+			packageProductDependencies = (
+			);
 			productName = PureCast;
 			productReference = A787D3082549DD2B0029DB6C /* PureCast.app */;
 			productType = "com.apple.product-type.application";
@@ -222,6 +224,8 @@
 				Base,
 			);
 			mainGroup = A787D2FF2549DD2B0029DB6C;
+			packageReferences = (
+			);
 			productRefGroup = A787D3092549DD2B0029DB6C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

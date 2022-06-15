@@ -65,12 +65,28 @@ class AudioPlayer: ObservableObject {
         setupNowPlaying(currentTime: current.seconds + 30)
     }
     
+    func seekFarForward() {
+        let current = player.currentTime()
+        let newTime = CMTime(seconds: current.seconds + 1800, preferredTimescale: 500)
+        player.seek(to: newTime)
+        setupNowPlaying(currentTime: current.seconds + 1800)
+    }
+    
     func seekBack() {
         let current = player.currentTime()
         let newTime = CMTime(seconds: current.seconds - 15, preferredTimescale: 600)
         player.seek(to: newTime)
         setupNowPlaying(currentTime: current.seconds - 15)
     }
+    
+    func seekFarBack() {
+        let current = player.currentTime()
+        let newTime = CMTime(seconds: current.seconds - 900, preferredTimescale: 600)
+        player.seek(to: newTime)
+        setupNowPlaying(currentTime: current.seconds - 900)
+    }
+    
+    
     
     func addPeriodicTimeObserver() {
         // Periodically observe the player's current time, whilst playing
@@ -101,6 +117,10 @@ class AudioPlayer: ObservableObject {
 
         // Set the metadata
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+    }
+    
+    func changePlaybackPosition(seekTo location: CMTime) {
+        player.seek(to: location)
     }
     
     func setupRemoteTransportControls() {
@@ -162,7 +182,6 @@ class AudioPlayer: ObservableObject {
     
     init() {
         setupRemoteTransportControls()
-        
     }
     
 }

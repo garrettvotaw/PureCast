@@ -31,7 +31,8 @@ struct PodcastRow: View {
                         
                         HStack {
                                 if let description = item.description {
-                                    Text("\(description)")
+                                    Text(description)
+                                        .lineLimit(15)
                                 } else {
                                     EmptyView()
                                 }
@@ -49,25 +50,6 @@ struct PodcastRow: View {
         .onTapGesture {
             audioPlayer.currentItem = item.title
             audioPlayer.url = item.audioURL
-//            if audioPlayer.isPlaying {
-//                if audioPlayer.url == item.audioURL {
-//                    return
-//                } else {
-//                    audioPlayer.playPause()
-//
-//                    audioPlayer.playPause()
-//                }
-//            } else {
-//                audioPlayer.url = item.audioURL
-//                audioPlayer.currentItem = item.title
-//                audioPlayer.playPause()
-//            }
         }
     }
 }
-
-//struct PodcastRow_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PodcastRow.init(item: , audioPlayer: AudioPlayer())
-//    }
-//}

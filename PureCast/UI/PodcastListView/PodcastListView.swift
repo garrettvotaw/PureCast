@@ -22,8 +22,13 @@ struct PodcastListView: View {
                 if item.isVideo {
                     NavigationLink(
                         destination: VideoPlayer(player: audioPlayer.player)
-                            .onAppear {
+                            .onAppear() {
                                 audioPlayer.url = item.audioURL
+                                audioPlayer.currentItem = item.title
+                                audioPlayer.showPlayer = false
+                            }
+                            .onDisappear() {
+                                audioPlayer.showPlayer = true
                             },
                         label: {
                             VideoPodcastRow(item: item, audioPlayer: audioPlayer)

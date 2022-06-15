@@ -34,8 +34,8 @@ extension PodcastDownloader {
                     print(feed)
                     break
                 case .rss(let feed):
-                    DispatchQueue.main.async {
-                        for i in feed.items! {
+                    for i in feed.items! {
+                        DispatchQueue.main.async {
                             self.podcasts.append(Podcast(feedItem: i))
                         }
                     }

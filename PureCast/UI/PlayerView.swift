@@ -57,6 +57,15 @@ struct PlayerControls: View {
     var body: some View {
         HStack {
             Button {
+                audioPlayer.seekFarBack()
+            } label: {
+                Image(systemName: "gobackward")
+                    .resizable()
+                    .frame(width: 20, height: 23, alignment: .center)
+                    .foregroundColor(Color("BlackWhite"))
+            }
+            .padding(.trailing)
+            Button {
                 audioPlayer.seekBack()
             } label: {
                 Image(systemName: "gobackward.15")
@@ -67,11 +76,22 @@ struct PlayerControls: View {
             .padding(.trailing)
 
             PlayButton(audioPlayer: audioPlayer)
+                
             
             Button {
                 audioPlayer.seekForward()
             } label: {
                 Image(systemName: "goforward.30")
+                    .resizable()
+                    .frame(width: 20, height: 23, alignment: .center)
+                    .foregroundColor(Color("BlackWhite"))
+            }
+            .padding(.leading)
+            
+            Button {
+                audioPlayer.seekFarForward()
+            } label: {
+                Image(systemName: "goforward")
                     .resizable()
                     .frame(width: 20, height: 23, alignment: .center)
                     .foregroundColor(Color("BlackWhite"))
@@ -85,7 +105,7 @@ struct ProgressionView: View {
     let timeObserver: AudioPlayer
     @State private var currentTime: TimeInterval = 0
     @State private var currentProgress: TimeInterval = 0
-    let gradient = Gradient(colors: [Color("Accent"), Color("Color")])
+//    let gradient = Gradient(colors: [Color("Accent"), Color("Color")])
       var body: some View {
         VStack {
             ProgressView(value: currentProgress)
@@ -128,3 +148,5 @@ struct PlayButton: View {
         })
     }
 }
+
+

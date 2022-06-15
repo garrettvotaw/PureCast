@@ -16,7 +16,6 @@ struct VideoPodcastRow: View {
         VStack {
             VStack {
                 HStack {
-                    
                     Text(item.title)
                     .padding(.bottom, 10)
                     .font(.headline)
