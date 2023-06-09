@@ -114,7 +114,7 @@ struct ProgressionView: View {
                     self.currentTime = time
                 }
                 .accentColor(Color("BlackWhite"))
-                .animation(.easeInOut(duration: 1))
+                .animation(.easeInOut, value: 1.0)
             HStack {
                 Text("\(Utility.formatSecondsToHMS(currentTime))")
                     .padding(.leading)
@@ -128,7 +128,6 @@ struct ProgressionView: View {
             }
         }
       }
-
 }
 
 
